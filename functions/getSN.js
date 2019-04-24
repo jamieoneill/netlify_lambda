@@ -31,7 +31,7 @@ exports.handler = function (event, context, callback) {
                         "Authorization": "Basic ${TOKEN}",
                     }
                 }).then(res =>
-                parseString(res.data,  function (err, result) {send( JSON.stringify(result['SOAP-ENV:Envelope']['SOAP-ENV:Body']));}))
+                send( parseString(res.data,  function (err, result) {send( JSON.stringify(result['SOAP-ENV:Envelope']['SOAP-ENV:Body']));})) )
             .catch(err => send(err));
     }
 
