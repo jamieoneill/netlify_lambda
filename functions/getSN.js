@@ -15,7 +15,7 @@ exports.handler = function (event, context, callback) {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             },
-            body: JSON.stringify(body)
+            body: "hello do i work?"//JSON.stringify(body)
         });
     }
 
