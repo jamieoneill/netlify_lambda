@@ -36,8 +36,7 @@ exports.handler = function (event, context, callback) {
                         "Authorization": "Basic ${TOKEN}",
                     }
                 }).then(res =>
-                console.log(JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord']),
-                send( JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord']      ))
+                send( formatJson( JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord'] )      ))
             .catch(err => send(err));
     }
 
@@ -45,5 +44,18 @@ exports.handler = function (event, context, callback) {
     if (event.httpMethod == 'GET') {
         // Run
         getInc();
+    }
+
+    function formatJson(myObj){
+
+        var newObject = '{'
+        var keys = Object.keys(myObj); // ['alpha', 'beta'] 
+        var values = Object.values(myObj); // ['alpha', 'beta'] 
+    
+        for(var i in keys) {
+            newObject += ' "'+keys[i]+'" : "'+ values[i]._text+'",'
+        }
+        console.log( JSON.parse(newObject.substring(0, newObject.length - 1) + "}"));
+        return JSON.parse(newObject.substring(0, newObject.length - 1)+ "}");
     }
 }
