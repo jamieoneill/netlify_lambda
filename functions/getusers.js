@@ -7,6 +7,11 @@ exports.handler = function(event, context, callback){
 
   // Send user response
   const send = body => {
+    console.log("sending response")
+    console.log(body)
+    console.log("body stringify")
+    console.log(JSON.stringify(body))
+    
     callback(null, {
       statusCode: 200,
       headers: {
