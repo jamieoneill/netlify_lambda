@@ -1,5 +1,5 @@
 const axios = require('axios');
-var parseString = require('xml2js').parseString;
+var convert = require('xml-js');
 
 exports.handler = function (event, context, callback) {
     const {
@@ -15,7 +15,7 @@ exports.handler = function (event, context, callback) {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             },
-            body: body//JSON.stringify(body)
+            body: JSON.stringify(body)
         });
     }
 
@@ -31,7 +31,7 @@ exports.handler = function (event, context, callback) {
                         "Authorization": "Basic ${TOKEN}",
                     }
                 }).then(res =>
-                send( parseString(res.data,  function (err, result) {send( JSON.stringify(result['SOAP-ENV:Envelope']['SOAP-ENV:Body']));})) )
+                send( convert.xml2json(res.data, {compact: true, spaces: 1})) )
             .catch(err => send(err));
     }
 
