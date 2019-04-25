@@ -15,7 +15,7 @@ exports.handler = function (event, context, callback) {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
             },
-            body: "hello do i work?"//JSON.stringify(body)
+            body: JSON.stringify(body)
         });
     }
 
@@ -31,7 +31,7 @@ exports.handler = function (event, context, callback) {
                         "Authorization": "Basic ${TOKEN}",
                     }
                 }).then(res =>
-                send( convert.xml2json(res.data, {compact: true, spaces: 1})) )
+                send( JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord']      ))
             .catch(err => send(err));
     }
 
