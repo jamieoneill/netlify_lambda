@@ -2,10 +2,10 @@ const fetchUsers = async () =>
   await (await fetch('/.netlify/functions/getusers')).json();
 
 const fetchSN = async () =>
-  await (await fetch('/.netlify/functions/getSN').json());
+  await (await fetch('/.netlify/functions/getSN')).json();
 
 const fetchTest = async () =>
-  await (await fetch('/.netlify/functions/getTest').json());
+  await (await fetch('/.netlify/functions/getTest')).json();
 
   //await (await fetch('/.netlify/functions/getSN')).json();
 
