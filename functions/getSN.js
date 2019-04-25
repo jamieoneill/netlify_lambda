@@ -9,6 +9,11 @@ exports.handler = function (event, context, callback) {
 
     // Send user response
     const send = body => {
+        console.log("sending response")
+        console.log(body)
+        console.log("body stringify")
+        console.log(JSON.stringify(body))
+
         callback(null, {
             statusCode: 200,
             headers: {
@@ -31,6 +36,7 @@ exports.handler = function (event, context, callback) {
                         "Authorization": "Basic ${TOKEN}",
                     }
                 }).then(res =>
+                console.log(JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord']),
                 send( JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord']      ))
             .catch(err => send(err));
     }
