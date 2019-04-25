@@ -26,14 +26,14 @@ exports.handler = function (event, context, callback) {
 
     const getInc = () => {
 
-        let xmls = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:inc=\"http://www.service-now.com/IncidentServiceAPI\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <inc:IncidentAPIRequest>\r\n         <snTicketNumber>${SN_TICKET}</snTicketNumber>\r\n         <sourceSystem>Test</sourceSystem>\r\n         <operation>GetRecord</operation>\r\n      </inc:IncidentAPIRequest>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>";
+        let xmls = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:inc=\"http://www.service-now.com/IncidentServiceAPI\">\r\n   <soapenv:Header/>\r\n   <soapenv:Body>\r\n      <inc:IncidentAPIRequest>\r\n         <snTicketNumber>INC3275885</snTicketNumber>\r\n         <sourceSystem>Test</sourceSystem>\r\n         <operation>GetRecord</operation>\r\n      </inc:IncidentAPIRequest>\r\n   </soapenv:Body>\r\n</soapenv:Envelope>";
 
         axios.post('https://aigm3.service-now.com/IncidentAPI.do?SOAP=',
                 xmls, {
                     headers: {
                         "Content-Type": "text/xml",
                         "Access-Control-Allow-Origin": "*",
-                        "Authorization": "Basic ${TOKEN}",
+                        "Authorization": "Basic ZGV2b3BzLnN0YW5kYXJkY2hhbmdlQGFpZy5jb206RGV2T3BzMlNOIw==",
                     }
                 }).then(res =>
                 send( formatJson( JSON.parse(convert.xml2json(res.data, {compact: true, spaces: 0}))["SOAP-ENV:Envelope"]['SOAP-ENV:Body']['snRecord'] )      ))
